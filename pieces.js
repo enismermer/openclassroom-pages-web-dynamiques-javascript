@@ -69,7 +69,7 @@ const boutonDecroissant = document.querySelector(".btn-decroissant");
 
 boutonDecroissant.addEventListener("click", function () {
     const piecesDesordonnees = Array.from(pieces);
-    
+
     piecesDesordonnees.sort(function (a, b) {
         return b.prix - a.prix;
     });
@@ -86,3 +86,58 @@ boutonNoDescription.addEventListener("click", function () {
     console.log(piecesFiltrees);
 })
 
+
+// Créer la liste avec uniquement les noms
+const noms = pieces.map(piece => piece.nom);
+
+// Afficher la liste des noms dont le prix est strictement inférieur à 35 euros
+for(let i = pieces.length -1 ; i >= 0; i--){
+   if(pieces[i].prix > 35){
+       noms.splice(i,1)
+   }
+}
+console.log(noms)
+
+
+// Création de la liste
+const abordablesElements = document.createElement('ul');
+// Ajout de chaque nom à la liste
+for(let i=0; i < noms.length ; i++){
+   const nomElement = document.createElement('li');
+   nomElement.innerText = noms[i];
+   abordablesElements.appendChild(nomElement)
+}
+// Ajout de l'en-tête puis de la liste au bloc résultats filtres
+document.querySelector('.abordables')
+    .appendChild(abordablesElements)
+
+
+
+// Créer la liste avec uniquement les noms
+const nomsDisponibles = pieces.map(piece => piece.nom);
+// Créer la liste avec uniquement les prix
+const prixDisponibles = pieces.map(piece => piece.prix);
+
+
+// Afficher la liste des noms et des prix dont la disponibilité est true
+for(let i = pieces.length -1 ; i >= 0; i--){
+    if(pieces[i].disponibilite === false){
+        nomsDisponibles.splice(i,1)
+        prixDisponibles.splice(i,1)
+    }
+ }
+
+// console.log(prixDisponibles)
+
+// Création de la liste
+const disponiblesElement = document.createElement("ul");
+// Ajout de nom et prix à la liste
+for (let i = 0; i < nomsDisponibles.length; i++) {
+    const nomElement = document.createElement("li");
+    nomElement.innerText = `${nomsDisponibles[i]} - ${prixDisponibles[i]} €`
+    disponiblesElement.appendChild(nomElement);
+}
+
+// Ajout de l'en-tête puis de la liste au bloc résultats filtres
+document.querySelector('.disponibles')
+    .appendChild(disponiblesElement)
