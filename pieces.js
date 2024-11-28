@@ -1,8 +1,11 @@
-import { ajoutListenersAvis } from "./avis.js";
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
 
 // Récupération des pièces depuis le fichier JSON
-const reponse = await fetch('http://localhost:8081/pieces');
+const reponse = await fetch('http://localhost:8081/pieces/');
 const pieces = await reponse.json();
+
+// On appelle la fonction pour ajouter le listener au formulaire
+ajoutListenerEnvoyerAvis();
 
 function genererPieces(pieces){
     for (let i = 0; i < pieces.length; i++) {
@@ -76,7 +79,7 @@ boutonDecroissant.addEventListener("click", function () {
     piecesOrdonnees.sort(function (a, b) {
         return b.prix - a.prix;
      });
-     document.querySelector(".fiches").innerHTML = "";
+    document.querySelector(".fiches").innerHTML = "";
     genererPieces(piecesOrdonnees);
 });
 
